@@ -80,7 +80,8 @@
     <Content Include="WebService1.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DaoBase.cs" />
+    <Compile Include="DAO\DaoBase.cs" />
+    <Compile Include="DAO\ImagenDAO.cs" />
     <Compile Include="Entities\Imagen.cs" />
     <Compile Include="Entities\Movimiento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,9 +90,7 @@
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAOs\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

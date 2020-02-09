@@ -197,5 +197,41 @@ namespace WebApplication1
             Comando.CommandType = CommandType.Text;
             Comando.CommandText = sQuery;
         }
+
+        public static int GetNextId(object dto)
+        {
+            if (dto == null)
+                return 0;
+
+            try
+            {
+                string query = string.Format("SELECT MAX(Id) FROM {0}", dto.GetType().Name);
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        object aux = cmd.ExecuteScalar();
+
+                        //Si el resultado es un numero, le sumo 1 y lo devuelvo.
+                        //Sino, devuelvo 1.
+                        int nextId;
+                        if ((bool)int.TryParse(aux.ToString(), out nextId))
+                            return (nextId + 1);
+                        else
+                            return 1;
+                    }
+                }
+
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
