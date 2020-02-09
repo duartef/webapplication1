@@ -10,7 +10,7 @@ namespace WebApplication1
 {
     public class DaoBase
     {
-        internal const string connStr = @"Data Source=SQL5009.myWindowsHosting.com;Initial Catalog=DB_9BA2A5_AgendaManager;User Id=DB_9BA2A5_AgendaManager_admin;Password=q1w2e3r4;";
+        internal const string connStr = @"Data Source=SQL5045.site4now.net;Initial Catalog=DB_9BA2A5_palmed;User Id=DB_9BA2A5_palmed_admin;Password=q1w2e3r4_;";
 
         public static bool DeleteEntity(object dto)
         {
