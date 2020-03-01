@@ -124,6 +124,20 @@ namespace WebApplication1
             }
         }
 
+        [WebMethod]
+        public string[] GetNombresInstituciones()
+        {
+            try
+            {
+                return MovimientoDAO.GetNombresInstituciones().ToArray();
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                throw;
+            }
+        }
+
 
         private void Log(Exception ex)
         {

@@ -316,5 +316,36 @@ namespace WebApplication1
             }
         }
 
+        internal static DataTable GetDataTableDistinct(string columna)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = string.Format("SELECT DISTINCT {0} FROM Movimiento", columna);
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+
+                        da.SelectCommand = cmd;
+
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

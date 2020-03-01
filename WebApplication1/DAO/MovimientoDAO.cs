@@ -60,7 +60,45 @@ namespace WebApplication1
 
         internal static List<string> GetNombresPacientes()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<string> pacientes = new List<string>();
+
+                DataTable dt = GetDataTableDistinct("Cliente");
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    pacientes.Add(Convert.ToString(dr[0]));
+                }
+
+                return pacientes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        internal static List<string> GetNombresInstituciones()
+        {
+            try
+            {
+                List<string> instituciones = new List<string>();
+
+                DataTable dt = GetDataTableDistinct("Instituciones");
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    instituciones.Add(Convert.ToString(dr[0]));
+                }
+
+                return instituciones;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
