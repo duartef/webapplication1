@@ -233,5 +233,119 @@ namespace WebApplication1
             }
         }
 
+        public static void PoblarObjetoDesdeDataRow(object obj, System.Data.DataRow dr)
+        {
+            //Obtengo el Tipo/Clase del objeto.
+            int i;
+            Type Objeto = obj.GetType();
+            PropertyInfo[] myPropertyInfo = Objeto.GetProperties((BindingFlags.Public | BindingFlags.Instance));
+
+            for (i = 0; i < myPropertyInfo.Length; i++)
+            {
+                PropertyInfo myPropInfo = ((PropertyInfo)myPropertyInfo[i]);
+
+                //Solo voy a tener en cuenta las propiedades que no sean ReadOnly.
+                //Así ignoro la 'TABLA'.
+                if (myPropInfo.CanWrite && dr.Table.Columns.Contains(myPropInfo.Name))
+                {
+                    if (dr[myPropInfo.Name] is Single && (myPropInfo.PropertyType == typeof(decimal) || myPropInfo.PropertyType == typeof(decimal?)))
+                    {
+                        //Seteo el valor de la propiedad SOLO si no es nulo.
+                        if (dr[myPropInfo.Name] != System.DBNull.Value)
+                            myPropInfo.SetValue(obj, Convert.ToDecimal(dr[myPropInfo.Name]), null);
+                    }
+                    else if (dr[myPropInfo.Name] is TimeSpan && (myPropInfo.PropertyType == typeof(DateTime) || myPropInfo.PropertyType == typeof(DateTime?)))
+                    {
+                        if (dr[myPropInfo.Name] != System.DBNull.Value)
+                            myPropInfo.SetValue(obj, (new DateTime().Add((TimeSpan)dr[myPropInfo.Name])), null);
+                    }
+                    else
+                    {
+                        //Seteo el valor de la propiedad SOLO si no es nulo.
+                        if (dr[myPropInfo.Name] != System.DBNull.Value)
+                            myPropInfo.SetValue(obj, dr[myPropInfo.Name], null);
+                    }
+                }
+            }
+        }
+
+        public static DataTable GetDataTableWhere(object dto, string filtro)
+        {
+            if (dto == null)
+                return null;
+
+            DataTable dt = new DataTable(dto.GetType().Name);
+
+            try
+            {
+                //Condición boba para poder agregarle los OR
+                string query = string.Format("SELECT * FROM {0} WHERE 1=1 AND ", dto.GetType().Name);
+
+                if (filtro != string.Empty)
+                {
+                    query += filtro;
+                }
+
+                //Le saco el AND o el OR que quedó en el final de la query.
+                if (query.Trim().EndsWith("AND") || query.Trim().EndsWith("OR"))
+                {
+                    query = query.Remove(query.Length - 4);
+                }
+
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+
+                        da.SelectCommand = cmd;
+
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        internal static DataTable GetDataTableDistinct(string columna)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                string query = string.Format("SELECT DISTINCT {0} FROM Movimiento", columna);
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+
+                        da.SelectCommand = cmd;
+
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
