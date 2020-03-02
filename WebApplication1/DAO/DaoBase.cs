@@ -40,42 +40,6 @@ namespace WebApplication1
             }
         }
 
-        public static bool GetEntity(object dto)
-        {
-            if (dto == null)
-                return false;
-
-            try
-            {
-                using(SqlConnection con = new SqlConnection(connStr))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = con;
-
-                        con.Open();
-
-                        var props = dto.GetType().GetProperties();
-                        foreach (PropertyInfo prop in props)
-                        {
-                            if (prop.Name != "CantFotos")
-                            {
-                                SqlParameter p = cmd.CreateParameter();
-
-                                if
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
-            
-        }
-
         public static bool CreateEntity(object dto)
         {
             if (dto == null)

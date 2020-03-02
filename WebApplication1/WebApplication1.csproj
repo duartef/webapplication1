@@ -82,7 +82,6 @@
   <ItemGroup>
     <Compile Include="DAO\DaoBase.cs" />
     <Compile Include="DAO\ImagenDAO.cs" />
-    <Compile Include="DAO\MovimientoDAO.cs" />
     <Compile Include="Entities\Imagen.cs" />
     <Compile Include="Entities\Movimiento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

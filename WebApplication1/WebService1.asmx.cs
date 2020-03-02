@@ -47,8 +47,6 @@ namespace WebApplication1
             }
         }
 
-
-
         [WebMethod]
         public Imagen[] RetrieveImages()
         {
