@@ -79,6 +79,21 @@ namespace WebApplication1
             }
         }
 
+        internal static int GetLatestIdMov()
+        {
+            try
+            {
+                int id = GetLatestId();
+                return id;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         internal static List<string> GetNombresInstituciones()
         {
             try

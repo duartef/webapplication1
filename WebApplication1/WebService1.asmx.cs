@@ -139,6 +139,20 @@ namespace WebApplication1
         }
 
 
+        [WebMethod]
+        public int GetIdMovimiento()
+        {
+            try
+            {
+                return MovimientoDAO.GetLatestId();
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                throw;
+            }
+        }
+
         private void Log(Exception ex)
         {
             EnviarNotificacion(ex);

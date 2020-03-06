@@ -316,6 +316,41 @@ namespace WebApplication1
             }
         }
 
+        internal static int GetLatestId()
+        {
+            try
+            {
+                string query = string.Format("SELECT MAX(Id) FROM ID");
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        object aux = cmd.ExecuteScalar();
+
+                        //Si el resultado es un numero, le sumo 1 y lo devuelvo.
+                        //Sino, devuelvo 1.
+                        int Id;
+                        try
+                        {
+                            int.TryParse(aux.ToString(), out Id);
+                            return Id;
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         internal static DataTable GetDataTableDistinct(string columna)
         {
             DataTable dt = new DataTable();
