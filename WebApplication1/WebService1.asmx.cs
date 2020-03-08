@@ -52,8 +52,14 @@ namespace WebApplication1
             }
             catch (Exception ex)
             {
-                Log(ex);
-                throw;
+                string objeto = Environment.NewLine + "Imagen Objeto: " + Environment.NewLine;
+                objeto += "Id Movimiento: " + imagen.IdMovimiento.ToString();
+                objeto += "Nombre: " + imagen.Nombre.ToString();
+                objeto += "Ruta: " + imagen.Ruta.ToString();
+                objeto += "Imagen: " + imagen.Foto.ToString();
+
+                Log(ex, objeto);
+                throw ex;
             }
         }
 
@@ -97,8 +103,8 @@ namespace WebApplication1
                 {
                     case "Movimiento":
                         return MovimientoDAO.RetrieveEntitiesWhere(dto, where).ToArray();
-                    //case "Imagen":
-                    //    return ImagenDAO.RetrieveEntitiesWhere(dto, where).ToArray();
+                    case "Imagen":
+                        return ImagenDAO.RetrieveEntitiesWhere(dto, where).ToArray();
                     default:
                         return null;
                 }
@@ -138,10 +144,38 @@ namespace WebApplication1
             }
         }
 
-
-        private void Log(Exception ex)
+        [WebMethod]
+        public Imagen[] GetImagenesDelMovimiento(int movimientoId)
         {
-            EnviarNotificacion(ex);
+            try
+            {
+                return ImagenDAO.RetrieveEntitiesWhere(new Imagen(), "IdMovimiento = " + movimientoId.ToString()).ToArray();
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                throw ex;
+            }
+        }
+
+        [WebMethod]
+        public bool EliminarImagen(int imagenId)
+        {
+            try
+            {
+                return ImagenDAO.DeleteEntity(new Imagen() { Id = imagenId });
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                throw ex;
+            }
+        }
+
+
+        private void Log(Exception ex, string objetoDeserealizado = "")
+        {
+            EnviarNotificacion(ex, objetoDeserealizado);
 
             //string mydocpath = "C:\\Log";
             //System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -161,7 +195,7 @@ namespace WebApplication1
             //}
         }
 
-        internal static void EnviarNotificacion(Exception ex)
+        internal static void EnviarNotificacion(Exception ex, string objetoDeserealizado = "")
         {
             try
             {
@@ -172,6 +206,12 @@ namespace WebApplication1
                 message.Priority = MailPriority.High;
 
                 string text = string.Format("Error ocurrido en PaceMakers: {0}", ex.Message);
+                if (ex.InnerException != null)
+                {
+                    text += "Objeto deserealizado: " + objetoDeserealizado;
+                    text += " Inner Exception: " + ex.InnerException.Message;
+                }
+
                 message.Body = text;
 
                 SmtpClient smtpClient = new SmtpClient("smtp.live.com", 587);

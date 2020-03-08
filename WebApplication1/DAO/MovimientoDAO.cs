@@ -85,7 +85,7 @@ namespace WebApplication1
             {
                 List<string> instituciones = new List<string>();
 
-                DataTable dt = GetDataTableDistinct("Instituciones");
+                DataTable dt = GetDataTableDistinct("Institucion");
 
                 foreach (DataRow dr in dt.Rows)
                 {

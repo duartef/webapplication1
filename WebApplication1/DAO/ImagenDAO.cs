@@ -44,7 +44,31 @@ namespace WebApplication1
             return false;
         }
 
+        internal static List<Imagen> RetrieveEntitiesWhere(object dto, string where)
+        {
+            List<Imagen> dtos = new List<Imagen>();
 
+            DataTable dt = GetDataTableWhere(dto, where);
 
+            if (dt.Rows.Count > 0)
+                dtos = LlenarImagenes(dto, dt);
+
+            return dtos;
+        }
+
+        private static List<Imagen> LlenarImagenes(object dto, DataTable dt)
+        {
+            List<Imagen> dtos = new List<Imagen>();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Imagen aux = new Imagen();
+                PoblarObjetoDesdeDataRow(aux, dr);
+
+                dtos.Add(aux);
+            }
+
+            return dtos;
+        }
     }
 }
