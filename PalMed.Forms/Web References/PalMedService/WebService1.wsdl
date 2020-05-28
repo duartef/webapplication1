@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Test">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="imagen" type="tns:Imagen" />
+            <s:element minOccurs="0" maxOccurs="1" name="movimiento" type="tns:Movimiento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Imagen">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IdMovimiento" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Foto" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ruta" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Descargado" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Movimiento">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nombre" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fecha" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Institucion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarMovimiento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="movimiento" type="tns:Movimiento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarMovimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarMovimientoResult" type="tns:Movimiento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="imagen" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GuardarImagenResult" type="tns:Imagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GuardarImagenes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="imagenConFoto" type="tns:Imagen" />
+            <s:element minOccurs="0" maxOccurs="1" name="imagenes" type="tns:ArrayOfImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfImagen">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Imagen" nillable="true" type="tns:Imagen" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GuardarImagenesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GuardarImagenesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RetrieveImages">
+        <s:complexType />
+      </s:element>
+      <s:element name="RetrieveImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveImagesResult" type="tns:ArrayOfImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MarcarImagenesDescargadas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="imagenesIds" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="MarcarImagenesDescargadasResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="RetrieveEntitiesWhere">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dto" />
+            <s:element minOccurs="0" maxOccurs="1" name="where" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RetrieveEntitiesWhereResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RetrieveEntitiesWhereResult" type="tns:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombresPacientes">
+        <s:complexType />
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetNombresPacientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNombresPacientesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNombresInstituciones">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNombresInstitucionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNombresInstitucionesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagenesDelMovimiento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="movimientoId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagenesDelMovimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImagenesDelMovimientoResult" type="tns:ArrayOfImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarImagen">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="imagenId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EliminarImagenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EliminarImagenResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIdMovimiento">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIdMovimientoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetIdMovimientoResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagenesPaginated">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="num" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="filtro" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagenesPaginatedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImagenesPaginatedResult" type="tns:ArrayOfImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFotosPaginado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ids" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFotosPaginadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFotosPaginadoResult" type="tns:ArrayOfImagen" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFotosId">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFotosIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFotosIdResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="ArrayOfImagen" nillable="true" type="tns:ArrayOfImagen" />
+      <s:element name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="int" type="s:int" />
+      <s:element name="ArrayOfInt" nillable="true" type="tns:ArrayOfInt" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapIn">
+    <wsdl:part name="parameters" element="tns:Test" />
+  </wsdl:message>
+  <wsdl:message name="TestSoapOut">
+    <wsdl:part name="parameters" element="tns:TestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarMovimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarMovimiento" />
+  </wsdl:message>
+  <wsdl:message name="GuardarMovimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarMovimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarImagen" />
+  </wsdl:message>
+  <wsdl:message name="GuardarImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GuardarImagenesSoapIn">
+    <wsdl:part name="parameters" element="tns:GuardarImagenes" />
+  </wsdl:message>
+  <wsdl:message name="GuardarImagenesSoapOut">
+    <wsdl:part name="parameters" element="tns:GuardarImagenesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveImages" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="MarcarImagenesDescargadasSoapIn">
+    <wsdl:part name="parameters" element="tns:MarcarImagenesDescargadas" />
+  </wsdl:message>
+  <wsdl:message name="MarcarImagenesDescargadasSoapOut">
+    <wsdl:part name="parameters" element="tns:MarcarImagenesDescargadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveEntitiesWhereSoapIn">
+    <wsdl:part name="parameters" element="tns:RetrieveEntitiesWhere" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveEntitiesWhereSoapOut">
+    <wsdl:part name="parameters" element="tns:RetrieveEntitiesWhereResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresPacientesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNombresPacientes" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresPacientesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNombresPacientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresInstitucionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNombresInstituciones" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresInstitucionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNombresInstitucionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImagenesDelMovimiento" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImagenesDelMovimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenSoapIn">
+    <wsdl:part name="parameters" element="tns:EliminarImagen" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenSoapOut">
+    <wsdl:part name="parameters" element="tns:EliminarImagenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIdMovimientoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIdMovimiento" />
+  </wsdl:message>
+  <wsdl:message name="GetIdMovimientoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIdMovimientoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImagenesPaginated" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImagenesPaginatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosPaginadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFotosPaginado" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosPaginadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFotosPaginadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFotosId" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFotosIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveImagesHttpGetIn" />
+  <wsdl:message name="RetrieveImagesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresPacientesHttpGetIn" />
+  <wsdl:message name="GetNombresPacientesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresInstitucionesHttpGetIn" />
+  <wsdl:message name="GetNombresInstitucionesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoHttpGetIn">
+    <wsdl:part name="movimientoId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenHttpGetIn">
+    <wsdl:part name="imagenId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetIdMovimientoHttpGetIn" />
+  <wsdl:message name="GetIdMovimientoHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedHttpGetIn">
+    <wsdl:part name="num" type="s:string" />
+    <wsdl:part name="filtro" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosIdHttpGetIn" />
+  <wsdl:message name="GetFotosIdHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInt" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RetrieveImagesHttpPostIn" />
+  <wsdl:message name="RetrieveImagesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresPacientesHttpPostIn" />
+  <wsdl:message name="GetNombresPacientesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetNombresInstitucionesHttpPostIn" />
+  <wsdl:message name="GetNombresInstitucionesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoHttpPostIn">
+    <wsdl:part name="movimientoId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesDelMovimientoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenHttpPostIn">
+    <wsdl:part name="imagenId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EliminarImagenHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetIdMovimientoHttpPostIn" />
+  <wsdl:message name="GetIdMovimientoHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedHttpPostIn">
+    <wsdl:part name="num" type="s:string" />
+    <wsdl:part name="filtro" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetImagenesPaginatedHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfImagen" />
+  </wsdl:message>
+  <wsdl:message name="GetFotosIdHttpPostIn" />
+  <wsdl:message name="GetFotosIdHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfInt" />
+  </wsdl:message>
+  <wsdl:portType name="WebService1Soap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <wsdl:input message="tns:TestSoapIn" />
+      <wsdl:output message="tns:TestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarMovimiento">
+      <wsdl:input message="tns:GuardarMovimientoSoapIn" />
+      <wsdl:output message="tns:GuardarMovimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagen">
+      <wsdl:input message="tns:GuardarImagenSoapIn" />
+      <wsdl:output message="tns:GuardarImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagenes">
+      <wsdl:input message="tns:GuardarImagenesSoapIn" />
+      <wsdl:output message="tns:GuardarImagenesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <wsdl:input message="tns:RetrieveImagesSoapIn" />
+      <wsdl:output message="tns:RetrieveImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MarcarImagenesDescargadas">
+      <wsdl:input message="tns:MarcarImagenesDescargadasSoapIn" />
+      <wsdl:output message="tns:MarcarImagenesDescargadasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveEntitiesWhere">
+      <wsdl:input message="tns:RetrieveEntitiesWhereSoapIn" />
+      <wsdl:output message="tns:RetrieveEntitiesWhereSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <wsdl:input message="tns:GetNombresPacientesSoapIn" />
+      <wsdl:output message="tns:GetNombresPacientesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <wsdl:input message="tns:GetNombresInstitucionesSoapIn" />
+      <wsdl:output message="tns:GetNombresInstitucionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <wsdl:input message="tns:GetImagenesDelMovimientoSoapIn" />
+      <wsdl:output message="tns:GetImagenesDelMovimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <wsdl:input message="tns:EliminarImagenSoapIn" />
+      <wsdl:output message="tns:EliminarImagenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <wsdl:input message="tns:GetIdMovimientoSoapIn" />
+      <wsdl:output message="tns:GetIdMovimientoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <wsdl:input message="tns:GetImagenesPaginatedSoapIn" />
+      <wsdl:output message="tns:GetImagenesPaginatedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosPaginado">
+      <wsdl:input message="tns:GetFotosPaginadoSoapIn" />
+      <wsdl:output message="tns:GetFotosPaginadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <wsdl:input message="tns:GetFotosIdSoapIn" />
+      <wsdl:output message="tns:GetFotosIdSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WebService1HttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <wsdl:input message="tns:RetrieveImagesHttpGetIn" />
+      <wsdl:output message="tns:RetrieveImagesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <wsdl:input message="tns:GetNombresPacientesHttpGetIn" />
+      <wsdl:output message="tns:GetNombresPacientesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <wsdl:input message="tns:GetNombresInstitucionesHttpGetIn" />
+      <wsdl:output message="tns:GetNombresInstitucionesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <wsdl:input message="tns:GetImagenesDelMovimientoHttpGetIn" />
+      <wsdl:output message="tns:GetImagenesDelMovimientoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <wsdl:input message="tns:EliminarImagenHttpGetIn" />
+      <wsdl:output message="tns:EliminarImagenHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <wsdl:input message="tns:GetIdMovimientoHttpGetIn" />
+      <wsdl:output message="tns:GetIdMovimientoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <wsdl:input message="tns:GetImagenesPaginatedHttpGetIn" />
+      <wsdl:output message="tns:GetImagenesPaginatedHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <wsdl:input message="tns:GetFotosIdHttpGetIn" />
+      <wsdl:output message="tns:GetFotosIdHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WebService1HttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <wsdl:input message="tns:RetrieveImagesHttpPostIn" />
+      <wsdl:output message="tns:RetrieveImagesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <wsdl:input message="tns:GetNombresPacientesHttpPostIn" />
+      <wsdl:output message="tns:GetNombresPacientesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <wsdl:input message="tns:GetNombresInstitucionesHttpPostIn" />
+      <wsdl:output message="tns:GetNombresInstitucionesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <wsdl:input message="tns:GetImagenesDelMovimientoHttpPostIn" />
+      <wsdl:output message="tns:GetImagenesDelMovimientoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <wsdl:input message="tns:EliminarImagenHttpPostIn" />
+      <wsdl:output message="tns:EliminarImagenHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <wsdl:input message="tns:GetIdMovimientoHttpPostIn" />
+      <wsdl:output message="tns:GetIdMovimientoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <wsdl:input message="tns:GetImagenesPaginatedHttpPostIn" />
+      <wsdl:output message="tns:GetImagenesPaginatedHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <wsdl:input message="tns:GetFotosIdHttpPostIn" />
+      <wsdl:output message="tns:GetFotosIdHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebService1Soap" type="tns:WebService1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarMovimiento">
+      <soap:operation soapAction="http://tempuri.org/GuardarMovimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagen">
+      <soap:operation soapAction="http://tempuri.org/GuardarImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagenes">
+      <soap:operation soapAction="http://tempuri.org/GuardarImagenes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <soap:operation soapAction="http://tempuri.org/RetrieveImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarImagenesDescargadas">
+      <soap:operation soapAction="http://tempuri.org/MarcarImagenesDescargadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveEntitiesWhere">
+      <soap:operation soapAction="http://tempuri.org/RetrieveEntitiesWhere" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <soap:operation soapAction="http://tempuri.org/GetNombresPacientes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <soap:operation soapAction="http://tempuri.org/GetNombresInstituciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <soap:operation soapAction="http://tempuri.org/GetImagenesDelMovimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <soap:operation soapAction="http://tempuri.org/EliminarImagen" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <soap:operation soapAction="http://tempuri.org/GetIdMovimiento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <soap:operation soapAction="http://tempuri.org/GetImagenesPaginated" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosPaginado">
+      <soap:operation soapAction="http://tempuri.org/GetFotosPaginado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <soap:operation soapAction="http://tempuri.org/GetFotosId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1Soap12" type="tns:WebService1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Test">
+      <soap12:operation soapAction="http://tempuri.org/Test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarMovimiento">
+      <soap12:operation soapAction="http://tempuri.org/GuardarMovimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagen">
+      <soap12:operation soapAction="http://tempuri.org/GuardarImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarImagenes">
+      <soap12:operation soapAction="http://tempuri.org/GuardarImagenes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarcarImagenesDescargadas">
+      <soap12:operation soapAction="http://tempuri.org/MarcarImagenesDescargadas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveEntitiesWhere">
+      <soap12:operation soapAction="http://tempuri.org/RetrieveEntitiesWhere" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <soap12:operation soapAction="http://tempuri.org/GetNombresPacientes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <soap12:operation soapAction="http://tempuri.org/GetNombresInstituciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <soap12:operation soapAction="http://tempuri.org/GetImagenesDelMovimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <soap12:operation soapAction="http://tempuri.org/EliminarImagen" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <soap12:operation soapAction="http://tempuri.org/GetIdMovimiento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <soap12:operation soapAction="http://tempuri.org/GetImagenesPaginated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosPaginado">
+      <soap12:operation soapAction="http://tempuri.org/GetFotosPaginado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <soap12:operation soapAction="http://tempuri.org/GetFotosId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1HttpGet" type="tns:WebService1HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <http:operation location="/RetrieveImages" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <http:operation location="/GetNombresPacientes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <http:operation location="/GetNombresInstituciones" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <http:operation location="/GetImagenesDelMovimiento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <http:operation location="/EliminarImagen" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <http:operation location="/GetIdMovimiento" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <http:operation location="/GetImagenesPaginated" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <http:operation location="/GetFotosId" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebService1HttpPost" type="tns:WebService1HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RetrieveImages">
+      <http:operation location="/RetrieveImages" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresPacientes">
+      <http:operation location="/GetNombresPacientes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNombresInstituciones">
+      <http:operation location="/GetNombresInstituciones" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesDelMovimiento">
+      <http:operation location="/GetImagenesDelMovimiento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarImagen">
+      <http:operation location="/EliminarImagen" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdMovimiento">
+      <http:operation location="/GetIdMovimiento" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagenesPaginated">
+      <http:operation location="/GetImagenesPaginated" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFotosId">
+      <http:operation location="/GetFotosId" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService1">
+    <wsdl:port name="WebService1Soap" binding="tns:WebService1Soap">
+      <soap:address location="http://fabricio-001-site7.ctempurl.com/WebService1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1Soap12" binding="tns:WebService1Soap12">
+      <soap12:address location="http://fabricio-001-site7.ctempurl.com/WebService1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1HttpGet" binding="tns:WebService1HttpGet">
+      <http:address location="http://fabricio-001-site7.ctempurl.com/WebService1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebService1HttpPost" binding="tns:WebService1HttpPost">
+      <http:address location="http://fabricio-001-site7.ctempurl.com/WebService1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

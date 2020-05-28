@@ -58,7 +58,28 @@ namespace WebApplication1
                 objeto += "Ruta: " + imagen.Ruta.ToString();
                 objeto += "Imagen: " + imagen.Foto.ToString();
 
-                Log(ex, objeto);
+                Log(ex);
+                throw ex;
+            }
+        }
+
+        [WebMethod]
+        public bool GuardarImagenes(Imagen imagenConFoto, Imagen[] imagenes)
+        {
+            try
+            {
+                foreach (Imagen imagen in imagenes)
+                {
+                    imagen.Foto = new byte[imagenConFoto.Foto.Length];
+                    imagenConFoto.Foto.CopyTo(imagen.Foto, 0);
+                    GuardarImagen(imagen);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
                 throw ex;
             }
         }
@@ -90,6 +111,20 @@ namespace WebApplication1
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        [WebMethod]
+        public void MarcarImagenesDescargadas(List<int> imagenesIds)
+        {
+            try
+            {
+                ImagenDAO.UpdateImagenes(imagenesIds);
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
                 throw ex;
             }
         }
@@ -186,9 +221,51 @@ namespace WebApplication1
             }
         }
 
+        [WebMethod]
+        public Imagen[] GetImagenesPaginated(int num, string filtro)
+        {
+            try
+            {
+                return ImagenDAO.GetEntitiesPaginated(num, filtro).ToArray();
+            }
+            catch (Exception ex)
+            {
+                Log(ex);
+                throw;
+            }
+        }
+
+        [WebMethod]
+        public Imagen[] GetFotosPaginado(List<int> ids)
+        {
+            try
+            {
+                return ImagenDAO.GetFotosPaginado(ids).ToArray();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [WebMethod]
+        public int[] GetFotosId()
+        {
+            try
+            {
+                return ImagenDAO.GetFotosId().ToArray();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         private void Log(Exception ex)
         {
-            EnviarNotificacion(ex, objetoDeserealizado);
+            EnviarNotificacion(ex);
 
             //string mydocpath = "C:\\Log";
             //System.Text.StringBuilder sb = new System.Text.StringBuilder();

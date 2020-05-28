@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{75E84540-014F-45B0-8CB6-C85CA39E0085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PalMed.Forms", "PalMed.Forms\PalMed.Forms.csproj", "{5FC4CFB9-D66A-490E-9D8B-7E5E2CD28ECE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{75E84540-014F-45B0-8CB6-C85CA39E0085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75E84540-014F-45B0-8CB6-C85CA39E0085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75E84540-014F-45B0-8CB6-C85CA39E0085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC4CFB9-D66A-490E-9D8B-7E5E2CD28ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC4CFB9-D66A-490E-9D8B-7E5E2CD28ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC4CFB9-D66A-490E-9D8B-7E5E2CD28ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC4CFB9-D66A-490E-9D8B-7E5E2CD28ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

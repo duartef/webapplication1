@@ -70,5 +70,76 @@ namespace WebApplication1
 
             return dtos;
         }
+
+        internal static List<Imagen> GetEntitiesPaginated(int num, string filtro)
+        {
+            try
+            {
+                List<Imagen> dtos = new List<Imagen>();
+
+                DataTable dt = GetDataTablePaginado(new Imagen(), num, filtro);
+
+                if (dt.Rows.Count > 0)
+                    dtos = LlenarImagenes(new Imagen(), dt);
+
+                return dtos;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
+        internal static List<int> GetFotosId()
+        {
+            try
+            {
+                List<int> ids = new List<int>();
+                DataTable dt = DaoBase.GetFotosId();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ids.Add((int)dr["Id"]);
+                }
+
+                return ids;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        internal static List<Imagen> GetFotosPaginado(List<int> ids)
+        {
+            try
+            {
+                List<Imagen> imagenes = new List<Imagen>();
+
+                DataTable dt = DaoBase.GetFotosPaginado(ids);
+                Imagen aux = new Imagen();
+                if (dt.Rows.Count > 0)
+                    imagenes = LlenarImagenes(aux, dt);
+
+                return imagenes;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        internal static void UpdateImagenes(List<int> imagenesIds)
+        {
+            try
+            {
+                DaoBase.UpdateImagenes(imagenesIds);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

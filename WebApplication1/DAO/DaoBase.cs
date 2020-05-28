@@ -104,6 +104,91 @@ namespace WebApplication1
             }
         }
 
+        protected static void UpdateImagenes(List<int> imagenesId)
+        {
+            try
+            {
+                string query = "UPDATE Imagen SET Descargado = 1 WHERE Id IN (";
+                query += String.Join(", ", imagenesId) + ")";
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        int result = (int)cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        protected static DataTable GetFotosPaginado(List<int> ids)
+        {
+            DataTable dt = new DataTable("Imagen");
+
+            try
+            {
+                string query = "SELECT * FROM Imagen WHERE Id IN (";
+                query += String.Join(", ", ids) + ")";
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+
+                        da.SelectCommand = cmd;
+
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        protected static DataTable GetFotosId()
+        {
+            DataTable dt = new DataTable("FotosId");
+
+            try
+            {
+                string query = "SELECT Id FROM Imagen WHERE Descargado = 0";
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         internal static SqlDbType ConvertToDBType(PropertyInfo prop)
         {
             if (prop.PropertyType == typeof(bool))
@@ -378,6 +463,49 @@ namespace WebApplication1
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public static DataTable GetDataTablePaginado(object dto, int num, string filtro)
+        {
+            if (dto == null)
+                return null;
+
+            DataTable dt = new DataTable(dto.GetType().Name);
+
+            try
+            {
+                //Condición boba para poder agregarle los OR
+                string query = string.Format("SELECT * FROM {0} WHERE Id BETWEEN {1} AND {2} AND ", dto.GetType().Name, num, num + 9);
+
+                if (filtro != string.Empty)
+                {
+                    query += filtro;
+
+                }
+
+                //Le saco el AND o el OR que quedó en el final de la query.
+                if (query.Trim().EndsWith("AND") || query.Trim().EndsWith("OR"))
+                    query = query.Remove(query.Length - 4);
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        con.Open();
+
+                        //Preparo el DataAdapter y DataTable para retornar los datos.
+                        SqlDataAdapter da = new SqlDataAdapter();
+                        da.SelectCommand = cmd;
+                        da.Fill(dt);
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
